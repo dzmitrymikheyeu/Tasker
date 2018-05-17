@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">core</string>
+    <string-array name="tags">
+        <item>Development</item>
+        <item>Work</item>
+        <item>Study</item>
+        <item>Rest</item>
+        <item>Shop</item>
+        <item>Design</item>
+    </string-array>
+</resources>

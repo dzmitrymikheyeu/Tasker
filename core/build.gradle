@@ -1,0 +1,63 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
+
+android {
+    compileSdkVersion 27
+
+    defaultConfig {
+        minSdkVersion 17
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            postprocessing {
+                removeUnusedCode false
+                removeUnusedResources false
+                obfuscate false
+                optimizeCode false
+                proguardFile 'proguard-rules.pro'
+            }
+        }
+        debug {
+        }
+    }
+
+}
+
+dependencies {
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    api deps.support.appCompat
+    api deps.support.recyclerView
+    api deps.support.support
+    api deps.support.designSupport
+    api deps.support.vector
+
+    api deps.android.lifecycleExt
+    api deps.android.lifecycleCommon
+    api deps.android.roomRuntime
+    api deps.android.roomRx
+    api deps.android.constraint
+
+    api deps.kotlin.stdlib
+
+    api deps.reactivex.rxJava
+    api deps.reactivex.rxAndroid
+
+    api deps.google.dagger
+    kapt deps.google.daggerProcessor
+    api deps.google.firebase
+    api deps.google.firestorage
+    api deps.google.gson
+
+    api deps.other.tags
+    api deps.other.paparazzo
+}
