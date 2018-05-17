@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.widget.EditText
-import android.widget.TextView
 import com.dev.tasker.R
 import com.dev.tasker.commons.TaskDH
 import com.dev.tasker.commons.data.local.Task
@@ -31,8 +30,7 @@ class CreateTaskActivity : AppCompatActivity() {
     }
 
     private val component by lazy { TaskDH.createComponent() }
-    @Inject
-    lateinit var viewModelFactory: CreateViewModelFactory
+    @Inject lateinit var viewModelFactory: CreateViewModelFactory
 
     private val viewModel: CreateTaskViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(CreateTaskViewModel::class.java)
@@ -53,11 +51,13 @@ class CreateTaskActivity : AppCompatActivity() {
         if (viewModel.isEditMode()) {
             btnCreate.setText(R.string.action_edit)
             with(viewModel.editTask) {
-                edtName.setText(this?.name)
-                edtDesc.setText(this?.description)
-                edtFile.setText(this?.filePath)
-                if(!this?.keywords.isNullOrEmpty()) {
-                    tagsContainer.setTags(this?.keywords?.split(","))
+                if(this != null) {
+                    edtName.setText(name)
+                    edtDesc.setText(description)
+                    edtFile.setText(filePath)
+                    if (keywords.isNullOrEmpty()) {
+                        tagsContainer.setTags(keywords.split(","))
+                    }
                 }
             }
             supportActionBar?.setTitle(R.string.edit_task)
@@ -73,9 +73,9 @@ class CreateTaskActivity : AppCompatActivity() {
                     .setPositiveButton(R.string.add_keywords, { _, _ ->
                         if (!edt.text.isNullOrEmpty()) {
                             var tags = edt.text.toString()
-                            if (tagsContainer.tags.isNotEmpty()) {
-                                tags += "," + tagsContainer.tags.joinToString()
-                            }
+                                    .plus(if (tagsContainer.tags.isNotEmpty()) {
+                                        "," + tagsContainer.tags.joinToString()
+                                    } else "")
                             tagsContainer.setTags(tags.trim().split(","))
                         }
                     })
@@ -119,7 +119,7 @@ class CreateTaskActivity : AppCompatActivity() {
 
     private fun saveTask() {
         viewModel.saveTask(edtName.text.toString(), edtDesc.text.toString(),
-                getTagsFromContainer().joinToString())
+                tagsContainer.tags.joinToString())
     }
 
     private fun startUploadProcess() {
@@ -127,14 +127,6 @@ class CreateTaskActivity : AppCompatActivity() {
         intent.putExtra(FileUploadService.ARG_FILE_PATH, viewModel.uploadFilePath)
         intent.putExtra(FileUploadService.ARG_UPLOAD_IMAGE, true)
         startService(intent)
-    }
-
-    private fun getTagsFromContainer(): ArrayList<String> {
-        return (0..tagsContainer.childCount)
-                .map { tagsContainer.getChildAt(it) }
-                .filter { it != null && it is TextView }
-                .map { (it as TextView).text.toString() }
-                .toCollection(ArrayList())
     }
 
     private fun initiateDataListener() {

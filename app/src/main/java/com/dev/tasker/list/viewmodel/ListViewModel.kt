@@ -25,7 +25,7 @@ class ListViewModel(private val repo: ListDataContract.Repository,
     }
 
     fun getTasks(finished: Boolean, started: Boolean) {
-            repo.fetchTasks(finished, started)
+        repo.fetchTasks(finished, started)
     }
 
     fun startTask(task: Task) {
@@ -33,9 +33,7 @@ class ListViewModel(private val repo: ListDataContract.Repository,
     }
 
     fun startTaskPostpone(task: Task) {
-        with(task) {
-            repo.postponeTask(task)
-        }
+        repo.postponeTask(task)
     }
 
     fun revertTask(task: Task) {
