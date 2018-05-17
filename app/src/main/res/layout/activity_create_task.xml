@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbarCreate"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:theme="@style/ToolbarStyle"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="80dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/edtName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/name"/>
+
+        <EditText
+            android:id="@+id/edtDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="@string/description"/>
+
+        <EditText
+            android:id="@+id/edtFile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:drawableEnd="@drawable/ic_file"
+            android:focusable="false"
+            android:hint="@string/add_file"
+            android:inputType="text"/>
+
+        <me.gujun.android.taggroup.TagGroup
+            android:id="@+id/tagsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            app:atg_backgroundColor="@color/colorPrimary"
+            app:atg_checkedBackgroundColor="@color/colorPrimary"
+            app:atg_pressedBackgroundColor="@color/colorPrimary"
+            app:atg_textColor="@android:color/white"
+            app:atg_textSize="15sp"
+            app:atg_verticalPadding="6dp"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnCreate"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:background="@color/colorPrimary"
+        android:text="@string/create"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btnKeywords"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_marginBottom="56dp"
+        android:layout_marginEnd="16dp"
+        android:elevation="8dp"
+        app:fabSize="normal"
+        app:srcCompat="@drawable/ic_short_text"/>
+
+</android.support.design.widget.CoordinatorLayout>

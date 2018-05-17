@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">Tasker</string>
+    <string name="title_home">Home</string>
+
+    <string name="more">More</string>
+    <string name="done">Done</string>
+    <string name="pending">Pending</string>
+    <string name="name">Name</string>
+    <string name="description">Description</string>
+    <string name="file">File</string>
+    <string name="attach_file">Attach file</string>
+    <string name="keywords">Add keywords</string>
+    <string name="create">Create</string>
+    <string name="add_task">Add Task</string>
+    <string name="error_name_desc">Please set name and description</string>
+    <string name="error_create_task">Error create task</string>
+    <string name="message_task_created">Task successfully created</string>
+    <string name="notification_channel_name">Tasker Channel</string>
+    <string name="action_add">Add New Task</string>
+    <string name="action_stop">Stop</string>
+    <string name="action_done">Done</string>
+    <string name="action_edit">Edit</string>
+    <string name="edit_task">Edit Task</string>
+    <string name="message_task_updated">Task successfully updated</string>
+    <string name="message_empty_pending_tasks">There are no tasks</string>
+    <string name="message_upload_file">Upload File</string>
+    <string name="message_file_downloaded">File successfully downloaded</string>
+    <string name="message_file_uploaded">File successfully uploaded</string>
+    <string name="message_uploading_file">Uploading File</string>
+    <string name="message_upload_error">Upload File Error</string>
+    <string name="message_download_error">Download File Error</string>
+    <string name="message_downloading_file">Downloading File</string>
+    <string name="add_new">Add New</string>
+    <string name="apply">Apply</string>
+    <string name="upload_file_message">Do you want to upload file in cloud?</string>
+    <string name="in_progress">In progress</string>
+    <string name="current">Current</string>
+    <string name="add_file">Add File</string>
+    <string name="add_keywords">Add keywords</string>
+    <string name="message_task_postponed">%s postponed for 1 min</string>
+</resources>

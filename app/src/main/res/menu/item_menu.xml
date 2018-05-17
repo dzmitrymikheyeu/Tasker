@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menuStart"
+        android:title="Start Task"/>
+    <item
+        android:id="@+id/menuStop"
+        android:title="Stop Task"/>
+    <item
+        android:id="@+id/menuRevert"
+        android:title="Revert Task"/>
+    <item
+        android:id="@+id/menuFinish"
+        android:title="Finish Task"/>
+    <item
+        android:id="@+id/menuRemove"
+        android:title="Remove Task"/>
+    <item
+        android:id="@+id/menuPostpone"
+        android:title="Postpone 1 min"/>
+    <item
+        android:id="@+id/menuEdit"
+        android:title="Edit Task"/>
+    <item
+        android:id="@+id/menuFile"
+        android:title="Open File"/>
+</menu>
