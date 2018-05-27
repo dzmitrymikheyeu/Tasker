@@ -1,9 +1,6 @@
 package com.dev.tasker.service
 
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
+import android.app.*
 import android.arch.lifecycle.LifecycleService
 import android.arch.lifecycle.Observer
 import android.content.Context
@@ -28,8 +25,10 @@ class TaskerService : LifecycleService() {
         const val CHANNEL_ID = PACKAGE + "TASKS_CHANNEL"
         const val ACTION_DEFAULT = PACKAGE + "ACTION_DEFAULT"
         const val ACTION_CANCEL = PACKAGE + "ACTION_CANCEL"
+        const val ACTION_START = PACKAGE + "ACTION_START"
         const val ACTION_FINISH = PACKAGE + "ACTION_FINISH"
         const val ACTION_CREATE = PACKAGE + "ACTION_CREATE"
+        const val ACTION_REMINDER = PACKAGE + "ACTION_REMINDER"
         const val ARG_TASK = PACKAGE + "ARG_TASK"
         const val ARG_TASK_ID = PACKAGE + "ARG_TASK_ID"
     }
@@ -46,9 +45,21 @@ class TaskerService : LifecycleService() {
     override fun onCreate() {
         super.onCreate()
         component.inject(this)
+        repo.taskOutcome.toLiveData(compositeDisposable)
+                .observe(this, Observer {
+                    when (it) {
+                        is Outcome.Success -> {
+                            prepareReminderNotification(it.data)
+                        }
 
+                        is Outcome.Failure -> {
+                            it.e.printStackTrace()
+                        }
+
+                    }
+                })
         repo.tasksFetchOutcome.toLiveData(compositeDisposable)
-                .observe(this, Observer<Outcome<List<Task>>> { outcome ->
+                .observe(this, Observer { outcome ->
                     when (outcome) {
                         is Outcome.Success -> {
                             outcome.data.forEach {
@@ -76,19 +87,31 @@ class TaskerService : LifecycleService() {
 
     private fun handleIntent(intent: Intent) {
         with(intent) {
-            if (intent.hasExtra(ARG_TASK)) {
-                val task = getParcelableExtra(ARG_TASK) as Task
-                when (action) {
-                    ACTION_CANCEL -> cancelTask(task)
-                    ACTION_FINISH -> finishTask(task)
+            when {
+                intent.action == ACTION_REMINDER -> {
+                    getTask(intent.getLongExtra(ARG_TASK_ID, 0L))
                 }
-            } else if (intent.hasExtra(ARG_TASK_ID)) {
-                startTask(intent.getLongExtra(ARG_TASK_ID, 0))
+                intent.hasExtra(ARG_TASK) -> {
+                    val task = getParcelableExtra(ARG_TASK) as Task
+                    when (action) {
+                        ACTION_CANCEL -> cancelTask(task)
+                        ACTION_FINISH -> finishTask(task)
+                    }
+                }
+                intent.hasExtra(ARG_TASK_ID) -> {
+                    startTask(intent.getLongExtra(ARG_TASK_ID, 0L))
+                }
             }
         }
     }
 
+    private fun getTask(taskId: Long) {
+        repo.getTask(taskId)
+    }
+
     private fun startTask(taskId: Long) {
+        cancelReminder(taskId.toInt())
+        notificationManager.cancel(taskId.toInt())
         repo.startTask(taskId)
     }
 
@@ -102,7 +125,7 @@ class TaskerService : LifecycleService() {
         notificationManager.cancel(task.taskId.toInt())
     }
 
-    private fun prepareNotification(task: Task) {
+    private fun configureChannel() {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O &&
                 notificationManager.getNotificationChannel(CHANNEL_ID) == null) {
             val channelName = getString(R.string.notification_channel_name)
@@ -113,6 +136,48 @@ class TaskerService : LifecycleService() {
             channel.enableLights(true)
             notificationManager.createNotificationChannel(channel)
         }
+    }
+
+    private fun prepareReminderNotification(task: Task) {
+        configureChannel()
+
+        val notificationIntent = Intent(this, MainActivity::class.java)
+        notificationIntent.action = ACTION_DEFAULT
+        notificationIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+        val defaultPendingIntent = PendingIntent.getActivity(this, 0,
+                notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+
+        val startIntent = Intent(this, TaskerService::class.java)
+        notificationIntent.action = ACTION_START
+        startIntent.putExtra(ARG_TASK_ID, task.taskId)
+        val startPendingIntent = PendingIntent.getService(this, task.taskId.toInt(),
+                startIntent, PendingIntent.FLAG_ONE_SHOT)
+
+        val notificationBuilder = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationCompat.Builder(this, CHANNEL_ID)
+        } else NotificationCompat.Builder(this)
+
+        notificationBuilder
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setCategory(NotificationCompat.CATEGORY_ALARM)
+                .setOnlyAlertOnce(true)
+                .setContentIntent(defaultPendingIntent)
+                .setContentTitle(task.name)
+                .setContentText(task.description)
+                .setSubText(getString(R.string.reminder))
+                .addAction(R.drawable.ic_add_circle, getString(R.string.action_start), startPendingIntent)
+                .setColor(ContextCompat.getColor(this, R.color.colorPrimary))
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            notificationBuilder.setVisibility(Notification.VISIBILITY_PUBLIC)
+        }
+
+        val notification = notificationBuilder.build()
+        notificationManager.notify(task.taskId.toInt(), notification)
+    }
+
+    private fun prepareNotification(task: Task) {
+        configureChannel()
 
         val notificationIntent = Intent(this, MainActivity::class.java)
         notificationIntent.action = ACTION_DEFAULT
@@ -162,6 +227,14 @@ class TaskerService : LifecycleService() {
 
         val notification = notificationBuilder.build()
         notificationManager.notify(task.taskId.toInt(), notification)
+    }
+
+    private fun cancelReminder(notificationId: Int) {
+        val alarm = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(this, TaskerService::class.java)
+        val pendingIntent = PendingIntent.getService(this, notificationId,
+                intent, PendingIntent.FLAG_CANCEL_CURRENT)
+        alarm.cancel(pendingIntent);
     }
 
     private fun removeNotification(notificationId: Int) {

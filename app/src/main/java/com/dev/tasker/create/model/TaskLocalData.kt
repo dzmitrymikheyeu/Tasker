@@ -9,12 +9,13 @@ import com.dev.tasker.core.networking.Scheduler
 import get
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.Single
 import set
 
 class TaskLocalData(private val preferences: SharedPreferences,
                     private val taskDb: TaskDb,
                     private val scheduler: Scheduler) : TaskDataContract.Local {
-    override fun getTask(taskId: Long) : Flowable<Task> {
+    override fun getTask(taskId: Long) : Single<Task> {
        return taskDb.taskDao().getTask(taskId)
     }
 

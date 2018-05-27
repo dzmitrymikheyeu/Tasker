@@ -2,7 +2,7 @@ package com.dev.tasker.create.model
 
 import com.dev.tasker.commons.data.local.Task
 import com.dev.tasker.core.networking.Outcome
-import io.reactivex.Flowable
+import io.reactivex.Single
 import io.reactivex.subjects.PublishSubject
 
 interface TaskDataContract {
@@ -16,7 +16,7 @@ interface TaskDataContract {
     }
 
     interface Local {
-        fun getTask(taskId: Long): Flowable<Task>
+        fun getTask(taskId: Long): Single<Task>
         fun saveTask(task: Task)
         fun updateTask(taskId: Long, name: String, description: String, imagePath: String, keywords: String)
         fun setTags(tags: ArrayList<String>)

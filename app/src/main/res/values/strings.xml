@@ -5,7 +5,7 @@
     <string name="more">More</string>
     <string name="done">Done</string>
     <string name="pending">Pending</string>
-    <string name="name">Name</string>
+    <string name="task_name">Task name</string>
     <string name="description">Description</string>
     <string name="file">File</string>
     <string name="attach_file">Attach file</string>
@@ -14,14 +14,14 @@
     <string name="add_task">Add Task</string>
     <string name="error_name_desc">Please set name and description</string>
     <string name="error_create_task">Error create task</string>
-    <string name="message_task_created">Task successfully created</string>
+    <string name="message_task_created">Task created</string>
     <string name="notification_channel_name">Tasker Channel</string>
     <string name="action_add">Add New Task</string>
     <string name="action_stop">Stop</string>
     <string name="action_done">Done</string>
     <string name="action_edit">Edit</string>
     <string name="edit_task">Edit Task</string>
-    <string name="message_task_updated">Task successfully updated</string>
+    <string name="message_task_updated">Task updated</string>
     <string name="message_empty_pending_tasks">There are no tasks</string>
     <string name="message_upload_file">Upload File</string>
     <string name="message_file_downloaded">File successfully downloaded</string>
@@ -38,4 +38,6 @@
     <string name="add_file">Add File</string>
     <string name="add_keywords">Add keywords</string>
     <string name="message_task_postponed">%s postponed for 1 min</string>
+    <string name="reminder">Reminder</string>
+    <string name="action_start">Start task</string>
 </resources>

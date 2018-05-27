@@ -3,6 +3,7 @@ package com.dev.tasker.list.model
 import com.dev.tasker.commons.data.local.Task
 import com.dev.tasker.core.networking.Outcome
 import io.reactivex.Flowable
+import io.reactivex.Single
 import io.reactivex.subjects.PublishSubject
 
 interface ListDataContract {
@@ -22,7 +23,7 @@ interface ListDataContract {
     }
 
     interface Local {
-        fun getTask(taskId: Long): Flowable<Task>
+        fun getTask(taskId: Long): Single<Task>
         fun getTasks(): Flowable<List<Task>>
         fun removeTask(task: Task)
         fun stopTask(task: Task)

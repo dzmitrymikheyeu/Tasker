@@ -5,6 +5,7 @@ import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy
 import android.arch.persistence.room.Query
 import io.reactivex.Flowable
+import io.reactivex.Single
 
 
 @Dao
@@ -23,7 +24,7 @@ interface TaskDao {
     fun getAll(): Flowable<List<Task>>
 
     @Query("SELECT * FROM task WHERE task.taskId LIKE :taskId")
-    fun getTask(taskId: Long): Flowable<Task>
+    fun getTask(taskId: Long): Single<Task>
 
     @Query("UPDATE task SET started = :start, finished = :finish, postponed = :postpone WHERE taskId = :taskId")
     fun updateTaskStatus(taskId: Long, start: Boolean, finish: Boolean, postpone: Boolean)

@@ -1,5 +1,6 @@
 package com.dev.tasker.list.fragment.adapter
 
+import android.support.design.chip.Chip
 import android.support.v4.content.ContextCompat
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.PopupMenu
@@ -64,16 +65,22 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.ListViewHolder>() {
             with(task) {
                 itemView.tvTitle.text = name
                 itemView.tvBody.text = description
-                if (!task.keywords.isNullOrEmpty()) {
-                    itemView.tagsContainer.setTags(task.keywords.split(","))
+                if (!task.keywords.isEmpty()) {
+                    itemView.chip_group.removeAllViews()
+                    task.keywords
+                            .split(",")
+                            .map {
+                                val chip = Chip(itemView.context)
+                                chip.chipText = it
+                                itemView.chip_group.addView(chip)
+                            }
                 }
                 if (finished) {
                     itemView.time.visibility = View.VISIBLE
                     itemView.time.text = DateUtils.formatElapsedTime(spendingTime / DateUtils.SECOND_IN_MILLIS)
                 } else if (started) {
                     itemView.tvTitle.setTextColor(ContextCompat.getColor(itemView.context, R.color.colorPrimaryDark))
-                    itemView.time.visibility = View.VISIBLE
-                    itemView.time.text = itemView.context.getString(R.string.in_progress)
+                    itemView.time.visibility = View.GONE
                 }
             }
         }

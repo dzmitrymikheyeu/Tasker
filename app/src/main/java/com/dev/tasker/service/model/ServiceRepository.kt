@@ -16,6 +16,7 @@ class ServiceRepository(private val local: ServiceDataContract.Local,
                         private val compositeDisposable: CompositeDisposable) : ServiceDataContract.Repository {
 
     override val tasksFetchOutcome: PublishSubject<Outcome<List<Task>>> = PublishSubject.create<Outcome<List<Task>>>()
+    override val taskOutcome: PublishSubject<Outcome<Task>> = PublishSubject.create<Outcome<Task>>()
 
     override fun finishTask(task: Task) {
         local.finishTask(task)
@@ -29,9 +30,21 @@ class ServiceRepository(private val local: ServiceDataContract.Local,
         local.startTask(taskId)
     }
 
+    override fun getTask(taskId: Long) {
+        local.getTask(taskId)
+                .performOnBackOutOnMain(scheduler)
+                .subscribe({
+                    run {
+                        taskOutcome.success(it)
+                    }
+                }, { error(handleError(it)) })
+                .addTo(compositeDisposable)
+    }
+
     override fun fetchTasks() {
         local.getTasks()
                 .performOnBackOutOnMain(scheduler)
+                .distinct()
                 .subscribe({ results ->
                     run {
                         tasksFetchOutcome.success(results)

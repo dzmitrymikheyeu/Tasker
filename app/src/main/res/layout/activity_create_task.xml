@@ -1,80 +1,202 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbarCreate"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
-        android:theme="@style/ToolbarStyle"/>
+        android:theme="@style/ToolbarStyle">
+
+        <ImageView
+            android:id="@+id/img_attach"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:padding="16dp"
+            app:srcCompat="@drawable/ic_attachment"/>
+    </android.support.v7.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="80dp"
+        android:layout_height="0dp"
+        android:layout_margin="4dp"
+        android:layout_weight="1"
+        android:background="@android:color/white"
+        android:elevation="2dp"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/edtName"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/name"/>
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:isScrollContainer="false">
 
-        <EditText
-            android:id="@+id/edtDesc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:hint="@string/description"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="8dp">
 
-        <EditText
-            android:id="@+id/edtFile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:drawableEnd="@drawable/ic_file"
-            android:focusable="false"
-            android:hint="@string/add_file"
-            android:inputType="text"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-        <me.gujun.android.taggroup.TagGroup
-            android:id="@+id/tagsContainer"
+                    <EditText
+                        android:id="@+id/edt_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:fontFamily="@font/work_sans_medium"
+                        android:hint="@string/task_name"
+                        android:inputType="textMultiLine|textCapSentences"
+                        android:paddingTop="20dp"
+                        android:paddingBottom="20dp"
+                        android:textSize="@dimen/text_size_subtitle"/>
+
+                    <ImageView
+                        android:id="@+id/img_mic_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="12sp"
+                        android:paddingTop="20dp"
+                        android:paddingEnd="8dp"
+                        android:paddingBottom="20dp"
+                        app:srcCompat="@drawable/ic_mic"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/super_light_gray"/>
+
+                <HorizontalScrollView
+                    android:id="@+id/scroll_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:scrollbars="none">
+
+                    <android.support.design.chip.ChipGroup
+                        android:id="@+id/chip_group"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:singleLine="true">
+
+                        <EditText
+                            android:id="@+id/edt_keywords"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:background="@null"
+                            android:fontFamily="@font/work_sans"
+                            android:hint="@string/add_keywords"
+                            android:imeOptions="actionDone"
+                            android:inputType="textCapWords"
+                            android:textSize="@dimen/text_size_regular"/>
+                    </android.support.design.chip.ChipGroup>
+                </HorizontalScrollView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/super_light_gray"/>
+
+                <com.dev.tasker.list.view.DateTextView
+                    android:id="@+id/txt_reminder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:drawableEnd="@drawable/ic_access_alarm"
+                    android:fontFamily="@font/work_sans"
+                    android:gravity="center_vertical"
+                    android:hint="@string/reminder"
+                    android:paddingTop="20dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="20dp"
+                    android:textSize="@dimen/text_size_regular"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/super_light_gray"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/edt_desc"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:fontFamily="@font/work_sans"
+                        android:gravity="top"
+                        android:hint="@string/description"
+                        android:inputType="textMultiLine|textCapSentences"
+                        android:paddingTop="20dp"
+                        android:paddingBottom="20dp"
+                        android:textSize="@dimen/text_size_regular"/>
+
+                    <ImageView
+                        android:id="@+id/img_mic_desc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="12sp"
+                        android:paddingTop="20dp"
+                        android:paddingEnd="8dp"
+                        android:paddingBottom="20dp"
+                        app:srcCompat="@drawable/ic_mic"/>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/container_file"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            app:atg_backgroundColor="@color/colorPrimary"
-            app:atg_checkedBackgroundColor="@color/colorPrimary"
-            app:atg_pressedBackgroundColor="@color/colorPrimary"
-            app:atg_textColor="@android:color/white"
-            app:atg_textSize="15sp"
-            app:atg_verticalPadding="6dp"/>
+            android:layout_margin="8dp"
+            android:background="@android:color/white"
+            android:elevation="2dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/txt_file"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/work_sans"
+                android:text="@string/file"
+                android:textSize="@dimen/text_size_regular"/>
+
+            <ImageView
+                android:id="@+id/img_remove_file"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="8dp"
+                app:srcCompat="@drawable/ic_clear"/>
+        </LinearLayout>
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnCreate"
+        android:id="@+id/btn_create"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_gravity="bottom"
+        android:layout_height="60dp"
         android:background="@color/colorPrimary"
+        android:fontFamily="@font/work_sans_semibold"
         android:text="@string/create"
-        android:textColor="@android:color/white"
-        android:textStyle="bold"/>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/btnKeywords"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_marginBottom="56dp"
-        android:layout_marginEnd="16dp"
-        android:elevation="8dp"
-        app:fabSize="normal"
-        app:srcCompat="@drawable/ic_short_text"/>
-
-</android.support.design.widget.CoordinatorLayout>
+        android:textColor="@android:color/white"/>
+</LinearLayout>

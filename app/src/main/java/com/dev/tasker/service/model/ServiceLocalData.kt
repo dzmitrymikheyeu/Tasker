@@ -7,6 +7,7 @@ import com.dev.tasker.core.extensions.performOnBackOutOnMain
 import com.dev.tasker.core.networking.Scheduler
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.Single
 
 class ServiceLocalData(private val taskDb: TaskDb, private val scheduler: Scheduler) : ServiceDataContract.Local {
 
@@ -37,6 +38,10 @@ class ServiceLocalData(private val taskDb: TaskDb, private val scheduler: Schedu
         })
                 .performOnBackOutOnMain(scheduler)
                 .subscribe()
+    }
+
+    override fun getTask(taskId: Long): Single<Task> {
+        return taskDb.taskDao().getTask(taskId)
     }
 
     override fun getTasks(): Flowable<List<Task>> {

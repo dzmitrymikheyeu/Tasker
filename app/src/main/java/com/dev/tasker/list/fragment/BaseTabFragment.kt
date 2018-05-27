@@ -55,8 +55,8 @@ abstract class BaseTabFragment : Fragment(), ListAdapter.TaskListener {
     }
 
     private fun initViews() {
+        rv_tasks.adapter = adapter
         adapter.listener = this
-        rvTasks.adapter = adapter
         if (enableItemsSwipe()) {
             val itemTaskTouchHelperCallback = ItemTaskTouchHelperCallback(
                     object : ItemTouchHelperAdapter {
@@ -69,7 +69,7 @@ abstract class BaseTabFragment : Fragment(), ListAdapter.TaskListener {
                 }
             }, isDoneTab())
             val itemTouchHelper = ItemTouchHelper(itemTaskTouchHelperCallback)
-            itemTouchHelper.attachToRecyclerView(rvTasks)
+            itemTouchHelper.attachToRecyclerView(rv_tasks)
         }
     }
 
@@ -78,7 +78,8 @@ abstract class BaseTabFragment : Fragment(), ListAdapter.TaskListener {
             when (outcome) {
                 is Outcome.Success -> {
                     with(outcome) {
-                        txtEmpty.visibility = if (data.isEmpty()) View.VISIBLE else View.GONE
+                        img_empty.visibility =
+                                if (data.isEmpty()) View.VISIBLE else View.GONE
                         adapter.data = data
                     }
                 }

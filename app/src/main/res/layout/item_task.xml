@@ -1,84 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.design.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="4dp"
-    android:layout_marginEnd="8dp"
     android:layout_marginStart="8dp"
     android:layout_marginTop="4dp"
-    android:background="@android:color/white"
-    android:elevation="4dp"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_marginEnd="8dp"
+    android:layout_marginBottom="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_margin="16dp"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:baselineAligned="false">
 
-            <TextView
-                android:id="@+id/tvTitle"
-                style="@style/Base.TextAppearance.AppCompat.Title"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                tools:text="Title to task"/>
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvBody"
-                style="@style/TextAppearance.AppCompat.Small"
-                android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tvTitle"
+                    style="@style/Base.TextAppearance.AppCompat.Title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Title to task"/>
+
+                <TextView
+                    android:id="@+id/tvBody"
+                    style="@style/TextAppearance.AppCompat.Small"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="2"
+                    tools:text="Body to task"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLines="2"
-                tools:text="Body to task"/>
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:paddingStart="8dp"
+                    android:paddingBottom="16dp"
+                    app:srcCompat="@drawable/ic_more_vert"/>
+
+                <TextView
+                    android:id="@+id/time"
+                    style="@style/TextAppearance.AppCompat.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <android.support.design.chip.ChipGroup
+            android:id="@+id/chip_group"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/more"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:paddingBottom="16dp"
-                android:paddingLeft="8dp"
-                app:srcCompat="@drawable/ic_more_vert"/>
-
-            <TextView
-                android:id="@+id/time"
-                style="@style/TextAppearance.AppCompat.Small"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textAllCaps="true"
-                android:textColor="@color/colorPrimary"
-                android:textStyle="bold"
-                android:visibility="gone"/>
-
-        </LinearLayout>
+            android:layout_marginTop="8dp"
+            app:chipSpacing="6dp"/>
     </LinearLayout>
-
-
-    <me.gujun.android.taggroup.TagGroup
-        android:id="@+id/tagsContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        app:atg_backgroundColor="@color/colorPrimary"
-        app:atg_checkedBackgroundColor="@color/colorPrimary"
-        app:atg_pressedBackgroundColor="@color/colorPrimary"
-        app:atg_textColor="@android:color/white"
-        app:atg_textSize="15sp"
-        app:atg_verticalPadding="6dp"/>
-</LinearLayout>
+</android.support.design.card.MaterialCardView>

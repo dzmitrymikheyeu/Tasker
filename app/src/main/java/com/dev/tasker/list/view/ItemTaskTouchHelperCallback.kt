@@ -41,12 +41,17 @@ class ItemTaskTouchHelperCallback(private val adapter: ItemTouchHelperAdapter,
             val itemView = viewHolder.itemView
             val itemHeight = itemView.bottom - itemView.top
 
+            // Fade animation
+            val alpha = 1.0f - Math.abs(dX) / itemView.width
+            viewHolder.itemView.alpha = alpha
+            viewHolder.itemView.translationX = dX
+
             // Draw the background
             background.color = getColor(recyclerView.context)
             background.setBounds(
-                    if(dX < 0) itemView.right + dX.toInt() else itemView.left,
+                    if (dX < 0) itemView.right + dX.toInt() else itemView.left,
                     itemView.top,
-                    if (dX < 0) itemView.right else (/*if (dX < itemView.left) itemView.left else */dX.toInt() + itemView.left),
+                    if (dX < 0) itemView.right else (dX.toInt() + itemView.left),
                     itemView.bottom
             )
             background.draw(canvas)
@@ -100,7 +105,7 @@ class ItemTaskTouchHelperCallback(private val adapter: ItemTouchHelperAdapter,
 
     private fun getDrawableRes(): Int {
         return when {
-            isRemove -> R.drawable.ic_remove_circle
+            isRemove -> R.drawable.ic_delete
             isPostpone -> R.drawable.ic_notifications_paused
             isRevert -> R.drawable.ic_replay
             else -> R.drawable.ic_play
