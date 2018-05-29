@@ -210,7 +210,8 @@ class CreateTaskActivity : AppCompatActivity() {
                 is Outcome.Success -> {
                     showToast(if (viewModel.isEditMode()) R.string.message_task_updated else R.string.message_task_created)
                     if(txt_reminder.calendar != null) {
-                        configureAlarm(outcome.data, txt_reminder.calendar.timeInMillis)
+                        val timeMillis = txt_reminder.calendar!!.timeInMillis
+                        configureAlarm(outcome.data, timeMillis)
                     }
                     if (viewModel.uploadFilePath != null) {
                         showUploadDialog()

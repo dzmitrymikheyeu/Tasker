@@ -20,7 +20,7 @@ class DateTextView : AppCompatTextView,
         private const val DATE_PATTERN = "yyyy-MM-dd hh:mm"
     }
 
-    lateinit var calendar: Calendar
+    var calendar: Calendar? = null
 
     constructor(context: Context) : super(context) {
         setOnClickListener(this)
@@ -36,19 +36,19 @@ class DateTextView : AppCompatTextView,
 
     override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int) {
         calendar = Calendar.getInstance()
-        calendar.set(Calendar.YEAR, year)
-        calendar.set(Calendar.MONTH, monthOfYear)
-        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+        calendar?.set(Calendar.YEAR, year)
+        calendar?.set(Calendar.MONTH, monthOfYear)
+        calendar?.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
         showTimeDialog()
     }
 
     override fun onTimeSet(p0: TimePicker?, p1: Int, p2: Int) {
-        calendar.set(Calendar.HOUR_OF_DAY, p1)
-        calendar.set(Calendar.MINUTE, p2)
+        calendar?.set(Calendar.HOUR_OF_DAY, p1)
+        calendar?.set(Calendar.MINUTE, p2)
 
         val formatter = SimpleDateFormat(DATE_PATTERN)
-        text = formatter.format(calendar.time)
+        text = formatter.format(calendar?.time)
 
     }
 
@@ -56,8 +56,8 @@ class DateTextView : AppCompatTextView,
         val dialog = TimePickerDialog(
                 context,
                 this,
-                calendar.get(Calendar.HOUR_OF_DAY),
-                calendar.get(Calendar.MINUTE),
+                calendar?.get(Calendar.HOUR_OF_DAY)!!,
+                calendar?.get(Calendar.MINUTE)!!,
                 true)
         dialog.show()
     }
