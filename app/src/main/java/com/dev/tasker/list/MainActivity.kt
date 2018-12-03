@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import com.dev.tasker.R
 import com.dev.tasker.create.CreateTaskActivity
 import com.dev.tasker.service.TaskerService
+import com.dev.tasker.settings.SettingsActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -22,8 +23,12 @@ class MainActivity : AppCompatActivity() {
         val adapter = TabPagerAdapter(this, supportFragmentManager)
         pager.adapter = adapter
 
-        fab.setOnClickListener({
+        fab.setOnClickListener {
             startActivity(Intent(MainActivity@this, CreateTaskActivity::class.java))
-        })
+        }
+
+        img_settings.setOnClickListener {
+            startActivity(Intent(MainActivity@this, SettingsActivity::class.java))
+        }
     }
 }

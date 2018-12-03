@@ -17,7 +17,7 @@ class DateTextView : AppCompatTextView,
         TimePickerDialog.OnTimeSetListener {
 
     companion object {
-        private const val DATE_PATTERN = "yyyy-MM-dd hh:mm"
+        private const val DATE_PATTERN = "yyyy-MM-dd hh:mm aaa"
     }
 
     var calendar: Calendar? = null

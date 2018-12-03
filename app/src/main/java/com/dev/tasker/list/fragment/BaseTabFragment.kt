@@ -43,7 +43,7 @@ abstract class BaseTabFragment : Fragment(), ListAdapter.TaskListener {
     protected abstract fun onSwipeLeft(from: Int)
     protected abstract fun onSwipeRight(from: Int)
     protected abstract fun isDoneTab(): Boolean
-    protected abstract fun enableItemsSwipe(): Boolean
+    protected abstract fun isCurrentTab(): Boolean
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return layoutInflater.inflate(R.layout.fragment_tasks, container, false)
@@ -57,20 +57,18 @@ abstract class BaseTabFragment : Fragment(), ListAdapter.TaskListener {
     private fun initViews() {
         rv_tasks.adapter = adapter
         adapter.listener = this
-        if (enableItemsSwipe()) {
-            val itemTaskTouchHelperCallback = ItemTaskTouchHelperCallback(
-                    object : ItemTouchHelperAdapter {
-                override fun onLeftSwipe(from: Int) {
-                    onSwipeLeft(from)
-                }
+        val itemTaskTouchHelperCallback = ItemTaskTouchHelperCallback(
+                object : ItemTouchHelperAdapter {
+                    override fun onLeftSwipe(from: Int) {
+                        onSwipeLeft(from)
+                    }
 
-                override fun onRightSwipe(from: Int) {
-                    onSwipeRight(from)
-                }
-            }, isDoneTab())
-            val itemTouchHelper = ItemTouchHelper(itemTaskTouchHelperCallback)
-            itemTouchHelper.attachToRecyclerView(rv_tasks)
-        }
+                    override fun onRightSwipe(from: Int) {
+                        onSwipeRight(from)
+                    }
+                }, isDoneTab(), isCurrentTab())
+        val itemTouchHelper = ItemTouchHelper(itemTaskTouchHelperCallback)
+        itemTouchHelper.attachToRecyclerView(rv_tasks)
     }
 
     protected fun initiateDataListener(liveData: LiveData<Outcome<List<Task>>>) {

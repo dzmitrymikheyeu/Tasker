@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.support.v4.app.NotificationCompat
 import android.support.v4.content.ContextCompat
+import android.support.v4.content.ContextCompat.getSystemService
 import com.dev.tasker.R
 import com.dev.tasker.commons.TaskDH
 import com.dev.tasker.commons.data.local.Task

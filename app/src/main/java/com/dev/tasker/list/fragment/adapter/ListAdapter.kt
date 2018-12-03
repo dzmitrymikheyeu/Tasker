@@ -52,6 +52,9 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.ListViewHolder>() {
                 more.setOnClickListener {
                     showPopupMenu(task, holder.itemView.more)
                 }
+                attachments.setOnClickListener {
+                    listener?.itemOpenFile(task)
+                }
             }
         }
     }
@@ -63,6 +66,7 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.ListViewHolder>() {
     class ListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(task: Task) {
             with(task) {
+                itemView.attachments.visibility = if (task.filePath.isEmpty()) View.GONE else View.VISIBLE
                 itemView.tvTitle.text = name
                 itemView.tvBody.text = description
                 if (!task.keywords.isEmpty()) {
@@ -71,13 +75,14 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.ListViewHolder>() {
                             .split(",")
                             .map {
                                 val chip = Chip(itemView.context)
-                                chip.chipText = it
+                                chip.text = it
                                 itemView.chip_group.addView(chip)
                             }
                 }
                 if (finished) {
                     itemView.time.visibility = View.VISIBLE
-                    itemView.time.text = DateUtils.formatElapsedTime(spendingTime / DateUtils.SECOND_IN_MILLIS)
+                    itemView.time.text = String.format(itemView.context.getString(R.string.total_time,
+                            DateUtils.formatElapsedTime(spendingTime / DateUtils.SECOND_IN_MILLIS)))
                 } else if (started) {
                     itemView.tvTitle.setTextColor(ContextCompat.getColor(itemView.context, R.color.colorPrimaryDark))
                     itemView.time.visibility = View.GONE
@@ -108,7 +113,7 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.ListViewHolder>() {
                 popupMenu.menu.removeItem(R.id.menuRevert)
             }
         }
-        if (task.filePath.isNullOrEmpty()) {
+        if (task.filePath.isEmpty()) {
             popupMenu.menu.removeItem(R.id.menuFile)
         }
         popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener {

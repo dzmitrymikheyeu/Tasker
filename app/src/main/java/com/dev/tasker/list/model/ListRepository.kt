@@ -6,13 +6,12 @@ import com.dev.tasker.core.extensions.failed
 import com.dev.tasker.core.extensions.performOnBackOutOnMain
 import com.dev.tasker.core.extensions.success
 import com.dev.tasker.core.networking.Outcome
-import com.dev.tasker.core.networking.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
 
 
 class ListRepository(private val local: ListDataContract.Local,
-                     private val scheduler: Scheduler,
+                     private val scheduler: com.dev.tasker.core.networking.Scheduler,
                      private val compositeDisposable: CompositeDisposable) : ListDataContract.Repository {
 
     override val currentTasksFetchOutcome: PublishSubject<Outcome<List<Task>>>

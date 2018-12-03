@@ -120,7 +120,7 @@ class FileUploadService : IntentService(SERVICE_NAME) {
                 ?.setProgress(progressMax, progress, false)
         if (file != null) {
             notification?.setContentIntent(PendingIntent.getActivity(this, 0, getFileIntent(file),
-                    PendingIntent.FLAG_CANCEL_CURRENT));
+                    PendingIntent.FLAG_CANCEL_CURRENT))
         }
         notificationManager.notify(notificationId, notification?.build())
         if (isStop) stopSelf()

@@ -21,7 +21,7 @@ class CurrentTabFragment : BaseTabFragment(), ListAdapter.TaskListener {
     }
 
     override fun onSwipeLeft(from: Int) {
-        viewModel.revertTask(adapter.data[from])
+        viewModel.finishTask(adapter.data[from])
     }
 
     override fun onSwipeRight(from: Int) {
@@ -30,5 +30,5 @@ class CurrentTabFragment : BaseTabFragment(), ListAdapter.TaskListener {
 
     override fun isDoneTab(): Boolean = true
 
-    override fun enableItemsSwipe(): Boolean = false
+    override fun isCurrentTab(): Boolean = true
 }

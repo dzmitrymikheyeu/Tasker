@@ -29,5 +29,7 @@ class DoneTabFragment : BaseTabFragment(), ListAdapter.TaskListener {
     }
 
     override fun isDoneTab(): Boolean = true
-    override fun enableItemsSwipe(): Boolean = true
+
+    override fun isCurrentTab(): Boolean = false
+
 }

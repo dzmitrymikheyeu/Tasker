@@ -43,34 +43,18 @@
                 android:orientation="vertical"
                 android:padding="8dp">
 
-                <LinearLayout
+                <EditText
+                    android:id="@+id/edt_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/edt_name"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:fontFamily="@font/work_sans_medium"
-                        android:hint="@string/task_name"
-                        android:inputType="textMultiLine|textCapSentences"
-                        android:paddingTop="20dp"
-                        android:paddingBottom="20dp"
-                        android:textSize="@dimen/text_size_subtitle"/>
-
-                    <ImageView
-                        android:id="@+id/img_mic_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="12sp"
-                        android:paddingTop="20dp"
-                        android:paddingEnd="8dp"
-                        android:paddingBottom="20dp"
-                        app:srcCompat="@drawable/ic_mic"/>
-                </LinearLayout>
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:fontFamily="@font/work_sans_medium"
+                    android:hint="@string/task_name"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp"
+                    android:textSize="@dimen/text_size_subtitle"/>
 
                 <View
                     android:layout_width="match_parent"
@@ -129,35 +113,19 @@
                     android:layout_height="1dp"
                     android:background="@color/super_light_gray"/>
 
-                <LinearLayout
+                <EditText
+                    android:id="@+id/edt_desc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/edt_desc"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:fontFamily="@font/work_sans"
-                        android:gravity="top"
-                        android:hint="@string/description"
-                        android:inputType="textMultiLine|textCapSentences"
-                        android:paddingTop="20dp"
-                        android:paddingBottom="20dp"
-                        android:textSize="@dimen/text_size_regular"/>
-
-                    <ImageView
-                        android:id="@+id/img_mic_desc"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="12sp"
-                        android:paddingTop="20dp"
-                        android:paddingEnd="8dp"
-                        android:paddingBottom="20dp"
-                        app:srcCompat="@drawable/ic_mic"/>
-                </LinearLayout>
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:fontFamily="@font/work_sans"
+                    android:gravity="top"
+                    android:hint="@string/description"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp"
+                    android:textSize="@dimen/text_size_regular"/>
             </LinearLayout>
         </ScrollView>
 
@@ -194,7 +162,7 @@
     <Button
         android:id="@+id/btn_create"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:background="@color/colorPrimary"
         android:fontFamily="@font/work_sans_semibold"
         android:text="@string/create"

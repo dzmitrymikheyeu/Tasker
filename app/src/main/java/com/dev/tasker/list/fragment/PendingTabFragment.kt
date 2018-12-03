@@ -30,5 +30,5 @@ class PendingTabFragment : BaseTabFragment() {
 
     override fun isDoneTab(): Boolean = false
 
-    override fun enableItemsSwipe(): Boolean = true
+    override fun isCurrentTab(): Boolean = false
 }

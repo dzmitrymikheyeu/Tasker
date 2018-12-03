@@ -55,8 +55,8 @@ class CreateTaskActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
         supportActionBar?.title = getString(R.string.add_task)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true);
-        supportActionBar?.setDisplayShowHomeEnabled(true);
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
 
         if (intent.hasExtra(ARG_TASK)) {
             viewModel.editTask = intent.getParcelableExtra(ARG_TASK) as Task
@@ -117,14 +117,6 @@ class CreateTaskActivity : AppCompatActivity() {
             return@setOnTouchListener true
         }
 
-        img_mic_desc.setOnClickListener {
-            recognizeSpeech(true)
-        }
-
-        img_mic_name.setOnClickListener {
-            recognizeSpeech(false)
-        }
-
         initiateDataListener()
     }
 
@@ -141,14 +133,6 @@ class CreateTaskActivity : AppCompatActivity() {
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
-    }
-
-    private fun recognizeSpeech(isDescription: Boolean) {
-        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-        intent.putExtra(ARG_SPEECH_DESCRIPTION, isDescription)
-        startActivityForResult(intent, REQUEST_CODE_SPEECH)
     }
 
     private fun addChip(text: CharSequence) {
